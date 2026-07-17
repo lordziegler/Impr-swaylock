@@ -287,10 +287,8 @@ def draw_panel(ctx, surface, W, H, preview_clock=False):
     # crest (upper third)
     draw_crest(ctx, cx, yc - 168 * s, 150 * s)
 
-    # status rule + label under the crest
-    hrule(ctx, inx1, cx - 70 * s, yc - 88 * s, rgba("#5E4E28", 0.8))
-    hrule(ctx, cx + 70 * s, inx2, yc - 88 * s, rgba("#5E4E28", 0.8))
-    tracked_text(ctx, "HOUSE ZIEGLER", cx, yc - 84 * s, 12 * s, rgba("#8A7040", 0.95), 4 * s)
+    # divider under the crest
+    hrule(ctx, inx1, inx2, yc - 88 * s, rgba("#5E4E28", 0.7))
 
     # clock slot — swaylock-effects draws the live HH:MM:SS centered here; glow
     glow = cairo.RadialGradient(cx, yc, 0, cx, yc, 160 * s)
@@ -305,12 +303,14 @@ def draw_panel(ctx, surface, W, H, preview_clock=False):
     # instrument ticks below the clock
     tick_row(ctx, inx1, inx2, yc + 70 * s, 20, 4 * s, rgba("#3A2E10", 0.9))
 
-    # epitaph — the House motto (serif, the one imperial flourish)
+    # epitaph — the House motto, framed tightly between two points
     hrule(ctx, inx1, inx2, yc + 90 * s, rgba("#5E4E28", 0.6))
-    diamond(ctx, inx1 + 4 * s, yc + 140 * s, 2.4 * s, ACCENT2)
-    diamond(ctx, inx2 - 4 * s, yc + 140 * s, 2.4 * s, ACCENT2)
-    tracked_text(ctx, "Leoni Nvlla Vis Avrae", cx, yc + 146 * s, 18 * s, MUTED, 3 * s,
-                 face=SERIF)
+    mb = yc + 146 * s
+    mx0, mx1 = tracked_text(ctx, "Leoni Nvlla Vis Avrae", cx, mb, 18 * s, MUTED, 3 * s,
+                            face=SERIF)
+    dy = mb - 18 * s * 0.34
+    diamond(ctx, mx0 - 16 * s, dy, 2.6 * s, ACCENT2)
+    diamond(ctx, mx1 + 16 * s, dy, 2.6 * s, ACCENT2)
 
 
 def draw_global_scanlines(ctx, W, H):
