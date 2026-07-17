@@ -1,0 +1,64 @@
+# imperator-swaylock — retrofuturist HUD lock (swaylock-effects)
+# Colors: rrggbbaa (no #). The HUD panel, frame, crest and epitaph are baked into
+# the background by wallpaper.py; this file only drives swaylock's live clock +
+# auth state. The circular indicator/ring is fully hidden — the clock and the
+# "> insert password" prompt carry the interface.
+
+# Solid fallback (bare swaylock, no image)
+color=0E0C08ff
+
+# --- Live clock: fills the slot the panel leaves open, seconds ticking ---
+clock
+timestr=%H:%M:%S
+datestr=
+indicator-idle-visible
+indicator-radius=170
+indicator-thickness=0
+
+# --- Ring / indicator: hidden. Only the centered text (clock/status) shows. ---
+ring-color=00000000
+inside-color=00000000
+line-color=00000000
+separator-color=00000000
+key-hl-color=00000000
+bs-hl-color=00000000
+text-color=FFD700ff
+
+# verifying
+ring-ver-color=00000000
+inside-ver-color=00000000
+line-ver-color=00000000
+text-ver-color=D4A843ff
+
+# wrong password
+ring-wrong-color=00000000
+inside-wrong-color=00000000
+line-wrong-color=00000000
+text-wrong-color=FF6B2Bff
+
+# cleared
+ring-clear-color=00000000
+inside-clear-color=00000000
+line-clear-color=00000000
+text-clear-color=8A7040ff
+
+# caps lock — signalled by text color only
+indicator-caps-lock
+ring-caps-lock-color=00000000
+inside-caps-lock-color=00000000
+line-caps-lock-color=00000000
+caps-lock-key-hl-color=00000000
+caps-lock-bs-hl-color=00000000
+text-caps-lock-color=F0B030ff
+
+# keyboard layout box
+layout-bg-color=1A1408e6
+layout-border-color=2A2010ff
+layout-text-color=8A7040ff
+
+# --- Typography ---
+font=JetBrainsMonoNL Nerd Font Mono
+font-size=54
+
+# --- Behavior ---
+show-failed-attempts

@@ -1,0 +1,11 @@
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Derivation sources — kept locally, NOT part of the deployed rice.
+# The runtime theme only needs assests/pandemonium.png and assests/shield.png;
+# these are the high-res masters/originals used to (re-)derive them.
+assests/pandemonium-original.jpg
+assests/pandemonium.jpg
+assests/pandemonium-aged.jpg
+assests/Ziegler.png
