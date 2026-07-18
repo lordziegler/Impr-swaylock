@@ -238,7 +238,7 @@ def clock_center(W, H):
 
 def draw_panel(ctx, surface, W, H, preview_clock=False):
     s = H / 1080.0
-    pw, ph = 512 * s, 580 * s
+    pw, ph = 468 * s, 440 * s
     px, py = round((W - pw) / 2), round((H - ph) / 2)
     pw, ph = round(pw), round(ph)
     cx = W // 2
@@ -282,35 +282,42 @@ def draw_panel(ctx, surface, W, H, preview_clock=False):
     bracket(ctx, px - 5, py + ph + 5, 1, -1, b, ACCENT, bl)
     bracket(ctx, px + pw + 5, py + ph + 5, -1, -1, b, ACCENT, bl)
 
-    inx1, inx2 = px + 40 * s, px + pw - 40 * s
+    inx1, inx2 = px + 38 * s, px + pw - 38 * s
 
-    # crest (top)
-    draw_crest(ctx, cx, yc - 215 * s, 130 * s)
+    # three framed bands: crest / clock+ring / epitaph, split by dividers
+    td, bd = yc - 108 * s, yc + 108 * s
+    hrule(ctx, inx1, inx2, td, rgba("#5E4E28", 0.7))
+    hrule(ctx, inx1, inx2, bd, rgba("#5E4E28", 0.7))
+    diamond(ctx, cx, td, 2.4 * s, ACCENT2)
+    diamond(ctx, cx, bd, 2.4 * s, ACCENT2)
 
-    # clock/ring zone — swaylock-effects draws its ring + the live clock inside
-    # it, centered here; bake a soft glow behind
-    glow = cairo.RadialGradient(cx, yc, 0, cx, yc, 165 * s)
+    # crest band
+    draw_crest(ctx, cx, yc - 165 * s, 92 * s)
+
+    # clock+ring band — swaylock draws its (smaller) ring + live clock centered
+    # here; bake a soft glow behind
+    glow = cairo.RadialGradient(cx, yc, 0, cx, yc, 112 * s)
     glow.add_color_stop_rgba(0, *rgba("#C8960C", 0.16))
     glow.add_color_stop_rgba(1, 0, 0, 0, 0)
     ctx.set_source(glow)
-    ctx.rectangle(px, yc - 170 * s, pw, 340 * s)
+    ctx.rectangle(px, yc - 108 * s, pw, 216 * s)
     ctx.fill()
     if preview_clock:
-        # mock swaylock's ring + clock to check the layout (not drawn at runtime)
+        # mock swaylock's ring + clock to check the layout (not drawn at runtime).
+        # track=0 mirrors swaylock's own clock, which has no letter-spacing.
         ctx.set_source_rgba(*ACCENT3)
-        ctx.set_line_width(5 * s)
-        ctx.arc(cx, yc, 145 * s, 0, TAU)
+        ctx.set_line_width(4 * s)
+        ctx.arc(cx, yc, 96 * s, 0, TAU)
         ctx.stroke()
-        tracked_text(ctx, "14:34:07", cx, yc + 15 * s, 46 * s, ACCENT, 2 * s, face=MONO)
+        tracked_text(ctx, "14:34:07", cx, yc + 12 * s, 34 * s, ACCENT, 0, face=MONO)
 
-    # epitaph — the House motto, framed tightly between two points
-    hrule(ctx, inx1, inx2, yc + 162 * s, rgba("#5E4E28", 0.6))
-    mb = yc + 200 * s
-    mx0, mx1 = tracked_text(ctx, "Leoni Nvlla Vis Avrae", cx, mb, 18 * s, MUTED, 3 * s,
+    # epitaph band — the House motto, framed tightly between two points
+    mb = yc + 170 * s
+    mx0, mx1 = tracked_text(ctx, "Leoni Nvlla Vis Avrae", cx, mb, 16 * s, MUTED, 3 * s,
                             face=SERIF)
-    dy = mb - 18 * s * 0.34
-    diamond(ctx, mx0 - 16 * s, dy, 2.6 * s, ACCENT2)
-    diamond(ctx, mx1 + 16 * s, dy, 2.6 * s, ACCENT2)
+    dy = mb - 16 * s * 0.34
+    diamond(ctx, mx0 - 15 * s, dy, 2.4 * s, ACCENT2)
+    diamond(ctx, mx1 + 15 * s, dy, 2.4 * s, ACCENT2)
 
 
 def draw_global_scanlines(ctx, W, H):

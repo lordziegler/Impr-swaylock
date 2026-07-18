@@ -12,8 +12,8 @@ clock
 timestr=%H:%M:%S
 datestr=
 indicator-idle-visible
-indicator-radius=145
-indicator-thickness=5
+indicator-radius=96
+indicator-thickness=4
 
 # --- Idle ring: the password indicator (highlights as you type) ---
 ring-color=A07820ff
@@ -58,4 +58,4 @@ layout-text-color=8A7040ff
 
 # Typography
 font=JetBrainsMonoNL Nerd Font Mono
-font-size=46
+font-size=34
