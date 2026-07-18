@@ -15,8 +15,8 @@ H="${SIZE#*x}"
 # --indicator-x/y-position override is passed (those are offsets-from-center and
 # would push it off-slot). Clock font, ring radius and thickness scale with the
 # resolution to match the baked panel (which is drawn relative to H/1080).
-FS=$(( 34 * H / 1080 ))
-R=$(( 96 * H / 1080 ))
+FS=$(( 38 * H / 1080 ))
+R=$(( 108 * H / 1080 ))
 TH=$(( 4 * H / 1080 ))
 [ "$TH" -lt 2 ] && TH=2
 POS=(--font-size "$FS" --indicator-radius "$R" --indicator-thickness "$TH")
