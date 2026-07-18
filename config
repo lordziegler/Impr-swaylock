@@ -1,64 +1,61 @@
 # imperator-swaylock — retrofuturist HUD lock (swaylock-effects)
 # Colors: rrggbbaa (no #). The HUD panel, frame, crest and epitaph are baked into
-# the background by wallpaper.py; this file only drives swaylock's live clock +
-# auth state. The circular indicator/ring is fully hidden — the clock and the
-# "> insert password" prompt carry the interface.
+# the background by wallpaper.py; this file drives swaylock's live clock and a
+# traditional ring password indicator around it. Status *text* (verifying, wrong,
+# cleared, caps lock) is suppressed — the ring COLOUR conveys state, not words.
 
 # Solid fallback (bare swaylock, no image)
 color=0E0C08ff
 
-# --- Live clock: fills the slot the panel leaves open, seconds ticking ---
+# --- Live clock inside the ring, seconds ticking ---
 clock
 timestr=%H:%M:%S
 datestr=
 indicator-idle-visible
-indicator-radius=170
-indicator-thickness=0
+indicator-radius=145
+indicator-thickness=5
 
-# --- Ring / indicator: hidden. Only the centered text (clock/status) shows. ---
-ring-color=00000000
+# --- Idle ring: the password indicator (highlights as you type) ---
+ring-color=A07820ff
 inside-color=00000000
 line-color=00000000
 separator-color=00000000
-key-hl-color=00000000
-bs-hl-color=00000000
-text-color=FFD700ff
+key-hl-color=FFD700ff
+bs-hl-color=766035ff
+text-color=D4A843ff
 
-# verifying
-ring-ver-color=00000000
+# --- Verifying (ring turns cold Signal Blue, no text) ---
+ring-ver-color=5B8DA8ff
 inside-ver-color=00000000
 line-ver-color=00000000
-text-ver-color=D4A843ff
+text-ver-color=00000000
 
-# wrong password
-ring-wrong-color=00000000
+# --- Wrong password (ring turns Plasma-Red, no text) ---
+ring-wrong-color=FF6B2Bff
 inside-wrong-color=00000000
 line-wrong-color=00000000
-text-wrong-color=FF6B2Bff
+text-wrong-color=00000000
 
-# cleared
-ring-clear-color=00000000
+# --- Cleared (dim, no text) ---
+ring-clear-color=766035ff
 inside-clear-color=00000000
 line-clear-color=00000000
-text-clear-color=8A7040ff
+text-clear-color=00000000
 
-# caps lock — signalled by text color only
+# --- Caps Lock (ring colour only, no text) ---
 indicator-caps-lock
-ring-caps-lock-color=00000000
+ring-caps-lock-color=F0B030ff
 inside-caps-lock-color=00000000
 line-caps-lock-color=00000000
-caps-lock-key-hl-color=00000000
-caps-lock-bs-hl-color=00000000
-text-caps-lock-color=F0B030ff
+caps-lock-key-hl-color=FFD700ff
+caps-lock-bs-hl-color=766035ff
+text-caps-lock-color=00000000
 
 # keyboard layout box
 layout-bg-color=1A1408e6
 layout-border-color=2A2010ff
 layout-text-color=8A7040ff
 
-# --- Typography ---
+# Typography
 font=JetBrainsMonoNL Nerd Font Mono
-font-size=54
-
-# --- Behavior ---
-show-failed-attempts
+font-size=46

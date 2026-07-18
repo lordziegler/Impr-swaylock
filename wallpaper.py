@@ -238,7 +238,7 @@ def clock_center(W, H):
 
 def draw_panel(ctx, surface, W, H, preview_clock=False):
     s = H / 1080.0
-    pw, ph = 512 * s, 524 * s
+    pw, ph = 512 * s, 580 * s
     px, py = round((W - pw) / 2), round((H - ph) / 2)
     pw, ph = round(pw), round(ph)
     cx = W // 2
@@ -284,28 +284,28 @@ def draw_panel(ctx, surface, W, H, preview_clock=False):
 
     inx1, inx2 = px + 40 * s, px + pw - 40 * s
 
-    # crest (upper third)
-    draw_crest(ctx, cx, yc - 168 * s, 150 * s)
+    # crest (top)
+    draw_crest(ctx, cx, yc - 215 * s, 130 * s)
 
-    # divider under the crest
-    hrule(ctx, inx1, inx2, yc - 88 * s, rgba("#5E4E28", 0.7))
-
-    # clock slot — swaylock-effects draws the live HH:MM:SS centered here; glow
-    glow = cairo.RadialGradient(cx, yc, 0, cx, yc, 160 * s)
+    # clock/ring zone — swaylock-effects draws its ring + the live clock inside
+    # it, centered here; bake a soft glow behind
+    glow = cairo.RadialGradient(cx, yc, 0, cx, yc, 165 * s)
     glow.add_color_stop_rgba(0, *rgba("#C8960C", 0.16))
     glow.add_color_stop_rgba(1, 0, 0, 0, 0)
     ctx.set_source(glow)
-    ctx.rectangle(px, yc - 160 * s, pw, 320 * s)
+    ctx.rectangle(px, yc - 170 * s, pw, 340 * s)
     ctx.fill()
     if preview_clock:
-        tracked_text(ctx, "14:34:07", cx, yc + 18 * s, 54 * s, ACCENT, 2 * s, face=MONO)
-
-    # instrument ticks below the clock
-    tick_row(ctx, inx1, inx2, yc + 70 * s, 20, 4 * s, rgba("#3A2E10", 0.9))
+        # mock swaylock's ring + clock to check the layout (not drawn at runtime)
+        ctx.set_source_rgba(*ACCENT3)
+        ctx.set_line_width(5 * s)
+        ctx.arc(cx, yc, 145 * s, 0, TAU)
+        ctx.stroke()
+        tracked_text(ctx, "14:34:07", cx, yc + 15 * s, 46 * s, ACCENT, 2 * s, face=MONO)
 
     # epitaph — the House motto, framed tightly between two points
-    hrule(ctx, inx1, inx2, yc + 90 * s, rgba("#5E4E28", 0.6))
-    mb = yc + 146 * s
+    hrule(ctx, inx1, inx2, yc + 162 * s, rgba("#5E4E28", 0.6))
+    mb = yc + 200 * s
     mx0, mx1 = tracked_text(ctx, "Leoni Nvlla Vis Avrae", cx, mb, 18 * s, MUTED, 3 * s,
                             face=SERIF)
     dy = mb - 18 * s * 0.34

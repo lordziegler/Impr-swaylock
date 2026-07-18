@@ -11,12 +11,15 @@ SIZE="${IMPERATOR_LOCK_SIZE:-1920x1080}"
 W="${SIZE%x*}"
 H="${SIZE#*x}"
 
-# The clock slot is the output center — swaylock-effects' own default indicator
-# position — so no --indicator-x/y-position override is passed (those are treated
-# as offsets-from-center by swaylock-effects and would push the clock off-slot).
-# Only the font size is scaled to the resolution.
-FS=$(( 54 * H / 1080 ))
-POS=(--font-size "$FS")
+# The clock/ring indicator is centered by swaylock-effects' own default, so no
+# --indicator-x/y-position override is passed (those are offsets-from-center and
+# would push it off-slot). Clock font, ring radius and thickness scale with the
+# resolution to match the baked panel (which is drawn relative to H/1080).
+FS=$(( 46 * H / 1080 ))
+R=$(( 145 * H / 1080 ))
+TH=$(( 5 * H / 1080 ))
+[ "$TH" -lt 2 ] && TH=2
+POS=(--font-size "$FS" --indicator-radius "$R" --indicator-thickness "$TH")
 
 python3 "$SCRIPT_DIR/wallpaper.py" --lock --out "$LOCK_IMG" --size "$SIZE"
 
